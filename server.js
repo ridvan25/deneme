@@ -10,7 +10,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 
 app.get('/', (req, res) => {
-  res.render('index.ejs', {
+  res.render('pages/index.ejs', {
     pageTitle: 'İndex',
     pageDatas: 'İndex İçerik',
     pageCopyRight : 'Rıdvan Karataş'
@@ -22,7 +22,7 @@ app.get('/hakkinda', (req, res) => {
   var user_id = req.param('id');
   var token = req.param('token');
 
-  res.render('hakkinda.ejs', {
+  res.render('pages/hakkinda.ejs', {
     pageTitle: 'Hakkında',
     pageDatas: 'Hakkında Sayfası İçerik',
     pageCopyRight : 'Rıdvan Karataş',
