@@ -2,12 +2,17 @@ const express = require('express');
 const hbs = require('hbs');
 const path = require('path');
 const ejs = require('ejs');
+const routes = require('./views/pages');
 
 var app = express();
 
+//app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname, '/public')));
 
+//app.set('views', path.join(__dirname, '/pages/'));
+
+console.log(__dirname);
 
 app.get('/', (req, res) => {
   res.render('pages/index.ejs', {
