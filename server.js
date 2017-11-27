@@ -34,6 +34,19 @@ app.get('/hakkinda', (req, res) => {
   });
 });
 
+app.get('/admin/admin_giris', (req, res) => {
+
+  res.render('admin/admin_giris.ejs', {
+    pageTitle: 'Hakkında',
+    pageDatas: 'Admin Giriş Sayfası İçerik',
+    pageCopyRight : 'Rıdvan Karataş',
+  });
+});
+
+  /*res.send({
+    sayfaMessage : 'Admin Giriş Sayfası'
+  });*/
+
 
 app.get('/uyari', (req, res) => {
   res.send({
