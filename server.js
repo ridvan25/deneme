@@ -48,28 +48,10 @@ app.get('/admin/admin_giris', (req, res) => {
 });
 
 app.post('/admin/login/control', (req, res) => {
-    /*var student = {
-        first : req.body.fname,
-        last : req.body.lname
-    }
-    console.log(student);
-    res.render('home',{
-        userValue : student,
-        topicHead : 'Student Form'
-    });*/
-    //res.json(student);
 
-    console.log(req.body.userName);
+    var admin = new Admin();
 
-    var adminObject = {
-      email : req.body.userName,
-      password : req.body.password
-    }
-
-    res.send({
-      errorMessage: 'Post basarili'
-    });
-
+    res.send(admin);
 
 });
 
