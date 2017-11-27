@@ -17,9 +17,12 @@
   },
   "homepage": "https://github.com/ridvan25/deneme#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "hbs": "^4.0.1",
-    "path": "^0.12.7"
+    "mongoose": "^4.13.5",
+    "path": "^0.12.7",
+    "validator": "^9.1.2"
   }
 }

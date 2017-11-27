@@ -1,11 +1,15 @@
 const express = require('express');
-const hbs = require('hbs');
 const path = require('path');
 const ejs = require('ejs');
 const routes = require('./views/pages');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+var {Admin} = require('./models/admin');
 
 var app = express();
 
+app.use(bodyParser());
 //app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
@@ -41,6 +45,32 @@ app.get('/admin/admin_giris', (req, res) => {
     pageDatas: 'Admin Giriş Sayfası İçerik',
     pageCopyRight : 'Rıdvan Karataş',
   });
+});
+
+app.post('/admin/login/control', (req, res) => {
+    /*var student = {
+        first : req.body.fname,
+        last : req.body.lname
+    }
+    console.log(student);
+    res.render('home',{
+        userValue : student,
+        topicHead : 'Student Form'
+    });*/
+    //res.json(student);
+
+    console.log(req.body.userName);
+
+    var adminObject = {
+      email : req.body.userName,
+      password : req.body.password
+    }
+
+    res.send({
+      errorMessage: 'Post basarili'
+    });
+
+
 });
 
   /*res.send({
