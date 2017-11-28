@@ -48,16 +48,21 @@ app.get('/admin/admin_giris', (req, res) => {
   });
 });
 
-app.post('/admin/login/control', (req, res) => {
+app.post('/admin/login/', (req, res) => {
+
+
+    console.log('gelen isim', req.body.userName);
+    console.log('gelen şifre', req.body.password);
 
     var admin = new Admin({
-      userName:'ridvanKarataş',
-      password: 'sdaasdas111'
+      userName: req.body.userName,
+      password: req.body.password,
     });
 
-    admin.save().then((user) => {
+    /*admin.save().then((user) => {
 
-    })
+    })*/
+    admin.generateAuthToken();
 
 });
 
