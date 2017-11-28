@@ -3,9 +3,10 @@ const path = require('path');
 const ejs = require('ejs');
 const routes = require('./views/pages');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+
 
 var {Admin} = require('./models/admin');
+var {mongoose} = require('./database/mongoose');
 
 var app = express();
 
@@ -49,11 +50,17 @@ app.get('/admin/admin_giris', (req, res) => {
 
 app.post('/admin/login/control', (req, res) => {
 
-    var admin = new Admin();
+    var admin = new Admin({
+      userName:'ridvanKarataş',
+      password: 'sdaasdas111'
+    });
 
-    res.send(admin);
+    admin.save().then((user) => {
+
+    })
 
 });
+
 
   /*res.send({
     sayfaMessage : 'Admin Giriş Sayfası'
