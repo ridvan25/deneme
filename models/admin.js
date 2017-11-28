@@ -25,16 +25,16 @@ var AdminSchema = new mongoose.Schema({
 
 
 AdminSchema.methods.generateAuthToken = function() {
-  var user = this;
+  var admin = this;
 
   console.log('user id ', user._id);
 
   var access = 'auth';
-  var token = jwt.sign({_id: user._id.toHexString(), access}, 'ridvan25').toString();
+  var token = jwt.sign({_id: admin._id.toHexString(), access}, 'ridvan25').toString();
 
-  user.tokens.push({access, token});
+  admin.tokens.push({access, token});
 
-  user.save().then(()=>{
+  admin.save().then(()=>{
     return token;
   });
 
