@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+    	<title>Developer</title>
+
+    	<!-- meta -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- stylesheet -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css" type='text/css'>
+        <link rel="stylesheet" href="/css/font-awesome.min.css" type='text/css'>
+        <link rel="stylesheet" href="/css/owl.carousel.css" type='text/css'>
+		    <link rel="stylesheet" href="/css/owl.theme.min.css" type='text/css'>
+        <link rel="stylesheet" href="/css/animate.css" type='text/css'>
+		    <link rel="stylesheet" href="/css/main.css" type='text/css'>
+
+		<!-- google font -->
+        <link href='http://fonts.googleapis.com/css?family=Oswald:300,400' rel='stylesheet'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300' rel='stylesheet' type='text/css'>
+        <link href="http://fonts.googleapis.com/css?family=Rouge+Script" rel="stylesheet" type="text/css">
+        <link href='http://fonts.googleapis.com/css?family=Milonga' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div class="content-block" id="header">
+            <div id="overlay-1">
+                <header id="site-header" class="clearfix">
+                  <% include ../partials/header %>
+                </header>	<!-- site-header -->
+
+                <div class="bottom text-center">
+                    <a href="#portfolio"><i class="fa fa-angle-down fa-3x pulse"></i></a>
+                </div>
+            </div>  <!-- overlay-1 -->
+        </div>  <!-- content-block -->
+
+
+
+
+        <div class="content-block" id="contact">
+            <div class="overlay-3">
+                <header class="block-heading cleafix text-center">
+                    <h1>Giriş </h1>
+                    <!-- <p>Feel Free to Contact</p> -->
+                </header>
+                <div class="block-content text-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 wow animated fadeInLeft" style="margin-top: 55px;">
+                                <form class="contact-form" action="/admin/login/sonuc/" method="post">
+                                    <input type="text" name="userName" placeholder="Name" required>
+                                    <input type="text" name="password" placeholder="Password" required>
+                                    <input type="submit" value="Giriş Yap">
+                                </form>
+                            </div>
+                            <div class="col-md-6 wow animated fadeInRight">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="contact-info">
+                                            <div class="clearfix">
+                                                <div class="rotated-icon">
+                                                    <div class="sqaure-nebir"></div>
+                                                    <i class="fa fa-map-marker"></i>
+                                                </div>
+                                                <p><strong> Address:</strong> Rıdvan Karataş
+                                                </p>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="rotated-icon">
+                                                    <div class="sqaure-nebir"></div>
+                                                    <i class="fa fa-mobile"></i>
+                                                </div>
+                                                <p><strong> Cell No:</strong> 1-800-123-456 </p>
+                                            </div>
+                                            <div class="clearfix">
+                                                <div class="rotated-icon">
+                                                    <div class="sqaure-nebir"></div>
+                                                    <i class="fa fa-envelope-o"></i>
+                                                </div>
+                                                <p>
+                                                    <strong> Email:</strong> developer@gmail.com
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <ul class="social-box">
+                                        <li><a class="facebook-icon" href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a class="twitter-icon" href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a class="g-plus-icon" href="#"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a class="linkedin-icon" href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>	<!-- block-content -->
+            </div>	<!-- overlay-3 -->
+        </div>	<!-- content-block -->
+
+        <footer id="site-footer">
+            <% include ../partials/footer %>
+        </footer>	<!-- site-footer -->
+
+
+        <!-- js -->
+        <script>
+            new WOW().init();
+        </script>
+
+        <script src="js/jquery-2.1.3.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.actual.min.js"></script>
+        <script src="js/isotope.pkgd.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/jquery.isonscreen.js"></script>
+
+        <script src="js/main.js"></script>
+
+        <script>
+        	$(document).ready(function(){
+  				$('.owl-carousel').owlCarousel({
+    				loop:true,
+    				margin:10,
+    				autoplay:true,
+    				autoplayTimeout:3000,
+    				autoplayHoverPause:true,
+    				responsiveClass:true,
+    				responsive:{
+        					0:{
+					            items:1,
+        					},
+					        600:{
+					            items:1,
+					        },
+					        1000:{
+					            items:1,
+					        }
+    				}
+				})
+			});
+        </script>
+
+	</body>
+</html>

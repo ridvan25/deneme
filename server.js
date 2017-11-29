@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 
 var {Admin} = require('./models/admin');
 var {mongoose} = require('./database/mongoose');
+var {authControl} = require('./middlewares/authControl');
 
 var app = express();
 
@@ -27,7 +28,19 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/hakkinda', (req, res) => {
+app.get('/hakkinda', authControl,  (req, res) => {
+
+  var user_id = req.param('id');
+  var token = req.param('token');
+
+  res.render('pages/hakkinda.ejs', {
+    pageTitle: 'Hakkında',
+    pageDatas: 'Hakkında Sayfası İçerik',
+    pageCopyRight : 'Rıdvan Karataş',
+  });
+});
+
+app.post('/hakkinda', authControl, (req, res) => {
 
   var user_id = req.param('id');
   var token = req.param('token');
@@ -60,11 +73,11 @@ app.post('/admins/', (req, res) => {
       password: req.body.password,
     });
 
-    admin.save().then(()=>{
+    admin.save().then(() => {
       return admin.generateAuthToken();
-    }).then((token)=>{
+    }).then((token) => {
       res.header('x-auth', token).send(admin);
-    }).catch((e)=>{
+    }).catch((e) => {
       res.status(400).send(e);
     })
 
@@ -72,28 +85,34 @@ app.post('/admins/', (req, res) => {
 
 
 
-app.post('/admin/login/', (req, res) => {
-
-
+app.post('/admin/login/sonuc/', authControl, (req, res) => {
     console.log('gelen isim', req.body.userName);
     console.log('gelen şifre', req.body.password);
 
-    var admin = new Admin({
-      userName: req.body.userName,
-      password: req.body.password,
+
+    Admin.findByCredentials(body.userName, body.password).then((admin) => {
+      return admin.generateAuthToken().then((token) => {
+        res.set('x-auth', token);
+        res.redirect('/hakkinda');
+      });
+    }).catch((e) => {
+        res.status(400).send();
     });
+ });
 
-    /*admin.save().then((user) => {
+ app.get('/admin/admin_login', (req, res) => {
 
-    })*/
-    admin.generateAuthToken();
+   var user_id = req.param('id');
+   var token = req.param('token');
+   console.log('hersey tamam');
 
-});
+   res.render('admin/admin_login.ejs', {
 
-
-  /*res.send({
-    sayfaMessage : 'Admin Giriş Sayfası'
-  });*/
+     pageTitle: 'Admin JS',
+     pageDatas: 'Admin JS Sayfası İçerik',
+     pageCopyRight : 'Rıdvan Karataş',
+   });
+ });
 
 
 app.get('/uyari', (req, res) => {

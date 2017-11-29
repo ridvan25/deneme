@@ -41,30 +41,59 @@ AdminSchema.pre('save', function (next) {
 
 
 AdminSchema.methods.generateAuthToken = function() {
-
   var admin = this;
-
   //console.log('user id ', user._id);
 
   var access = 'auth';
   var token = jwt.sign({_id: admin._id.toHexString(), access}, 'ridvan25').toString();
   let clone = {access, token};
 
-
   admin.tokens.push(clone);
 
-  return admin.save().then(()=>{
+  return admin.save().then(() => {
     return token;
   });
-
-
-
 };
 
 
+AdminSchema.statics.findByCredentials = function (email, password) {
+  var Admin = this;
 
+  return Admin.findOne({email}).then((admin) => {
+    if (!admin) {
+      return Promise.reject();
+    }
+
+    return new Promise((resolve, reject) => {
+      // Use bcrypt.compare to compare password and user.password
+      bcrypt.compare(password, admin.password, (err, res) => {
+        if (res) {
+          resolve(admin);
+        } else {
+          reject();
+        }
+      });
+    });
+  });
+};
+
+AdminSchema.statics.findByToken = function (token) {
+  var Admin = this;
+  var decoded;
+
+  try {
+    decoded = jwt.verify(token, 'abc123');
+  } catch (e) {
+    return Promise.reject();
+  }
+
+  return Admin.findOne({
+    '_id': decoded._id,
+    'tokens.token': token,
+    'tokens.access': 'auth'
+  });
+};
 
 
 var Admin = mongoose.model('Admin', AdminSchema);
-
 module.exports = {Admin};
