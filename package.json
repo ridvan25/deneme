@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ridvan25/deneme#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "crypto-js": "^3.1.9-1",

@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 
 //app.set('views', path.join(__dirname, '/pages/'));
 
-console.log(__dirname);
+//console.log(__dirname);
 
 app.get('/', (req, res) => {
   res.render('pages/index.ejs', {
@@ -47,6 +47,30 @@ app.get('/admin/admin_giris', (req, res) => {
     pageCopyRight : 'Rıdvan Karataş',
   });
 });
+
+
+
+app.post('/admins/', (req, res) => {
+
+    console.log('gelen isim', req.body.userName);
+    console.log('gelen şifre', req.body.password);
+
+    var admin = new Admin({
+      userName: req.body.userName,
+      password: req.body.password,
+    });
+
+    admin.save().then(()=>{
+      return admin.generateAuthToken();
+    }).then((token)=>{
+      res.header('x-auth', token).send(admin);
+    }).catch((e)=>{
+      res.status(400).send(e);
+    })
+
+});
+
+
 
 app.post('/admin/login/', (req, res) => {
 
