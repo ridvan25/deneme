@@ -44,7 +44,7 @@ AdminSchema.methods.generateAuthToken = function() {
   var admin = this;
   //console.log('user id ', user._id);
 
-  var access = 'auth';
+  var access = 'x-auth';
   var token = jwt.sign({_id: admin._id.toHexString(), access}, 'ridvan25').toString();
   let clone = {access, token};
 
@@ -56,10 +56,10 @@ AdminSchema.methods.generateAuthToken = function() {
 };
 
 
-AdminSchema.statics.findByCredentials = function (email, password) {
+AdminSchema.statics.findByCredentials = function (userName, password) {
   var Admin = this;
 
-  return Admin.findOne({email}).then((admin) => {
+  return Admin.findOne({userName}).then((admin) => {
     if (!admin) {
       return Promise.reject();
     }
@@ -82,7 +82,7 @@ AdminSchema.statics.findByToken = function (token) {
   var decoded;
 
   try {
-    decoded = jwt.verify(token, 'abc123');
+    decoded = jwt.verify(token, 'ridvan25');
   } catch (e) {
     return Promise.reject();
   }
@@ -90,7 +90,7 @@ AdminSchema.statics.findByToken = function (token) {
   return Admin.findOne({
     '_id': decoded._id,
     'tokens.token': token,
-    'tokens.access': 'auth'
+    'tokens.access': 'x-auth'
   });
 };
 
