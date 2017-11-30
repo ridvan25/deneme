@@ -28,9 +28,11 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/hakkinda', authControl,  (req, res) => {
+app.get('/hakkinda',  (req, res) => {
 
   console.log('HAkkında get');
+  var token = req.header('x-auth');
+  console.log('token ', token);
   var user_id = req.param('id');
   var token = req.param('token');
 
