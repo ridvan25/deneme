@@ -32,27 +32,20 @@ app.get('/hakkinda',  (req, res) => {
 
   console.log('HAkkında get');
   var token = req.header('x-auth');
-  console.log('token ', token);
+  console.log('header dan gelen token ', token);
   var user_id = req.param('id');
-  var token = req.param('token');
+  //var user_token = req.param('token');
+  //console.log('header dan gelen token ', token);
 
-  res.render('pages/hakkinda.ejs', {
+/*  res.render('pages/hakkinda.ejs', {
     pageTitle: 'Hakkında',
     pageDatas: 'Hakkında Sayfası İçerik',
     pageCopyRight : 'Rıdvan Karataş',
-  });
-});
+  });*/
 
-app.post('/hakkinda', authControl, (req, res) => {
-
-  console.log('HAkkında post');
-
-  var user_id = req.param('id');
-  var token = req.param('token');
-
-  res.send(req.token);
 
 });
+
 
 app.get('/admin/admin_giris', (req, res) => {
 
@@ -95,7 +88,7 @@ app.post('/admin/login/sonuc/', (req, res) => {
     Admin.findByCredentials(req.body.userName, req.body.password).then((admin) => {
       console.log('Admin ', admin.userName);
       return admin.generateAuthToken().then((token) => {
-        res.header('x-auth', token).redirect('/hakkinda');
+        res.redirect(`/hakkinda?token=${token}`);
         console.log('Gelen Token ', token);
         //res.redirect('http://localhost:3000/hakkinda');
       });
