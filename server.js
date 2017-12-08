@@ -28,20 +28,20 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/hakkinda',  (req, res) => {
+function tokenAl(req, res, next) {
+  var user_token = req.param('token');
+  console.log('url dan gelen token ', user_token);
+  req.authContolToken = user_token;
+  return next();
+}
 
-  console.log('HAkkında get');
-  var token = req.header('x-auth');
-  console.log('header dan gelen token ', token);
-  var user_id = req.param('id');
-  //var user_token = req.param('token');
-  //console.log('header dan gelen token ', token);
+app.get('/hakkinda', tokenAl, authControl,  (req, res) => {
 
-/*  res.render('pages/hakkinda.ejs', {
+  res.render('pages/hakkinda.ejs', {
     pageTitle: 'Hakkında',
     pageDatas: 'Hakkında Sayfası İçerik',
     pageCopyRight : 'Rıdvan Karataş',
-  });*/
+  });
 
 
 });
@@ -78,24 +78,34 @@ app.post('/admins/', (req, res) => {
 
 });
 
+function routeToHakkinda(req, res, next) {
+
+  console.log('gelen isim', req.body.userName);
+  console.log('gelen şifre', req.body.password);
 
 
-app.post('/admin/login/sonuc/', (req, res) => {
-    console.log('gelen isim', req.body.userName);
-    console.log('gelen şifre', req.body.password);
-
-
-    Admin.findByCredentials(req.body.userName, req.body.password).then((admin) => {
-      console.log('Admin ', admin.userName);
-      return admin.generateAuthToken().then((token) => {
-        res.redirect(`/hakkinda?token=${token}`);
-        console.log('Gelen Token ', token);
-        //res.redirect('http://localhost:3000/hakkinda');
-      });
-    }).catch((e) => {
-        console.log('Credentials Hata!!', e.stack);
-        res.status(400).send();
+  Admin.findByCredentials(req.body.userName, req.body.password).then((admin) => {
+    console.log('Admin ', admin.userName);
+    return admin.generateAuthToken().then((token) => {
+      //res.redirect(`/hakkinda?token=${token}`);
+      //res.redirect('http://localhost:3000/hakkinda');
+      //console.log('Gelen Token ', token);
+      req.gonderilecekToken = token ;
+      return next();
     });
+  }).catch((e) => {
+      console.log('Credentials Hata!!', e.stack);
+      res.status(400).send();
+  });
+
+
+}
+
+app.post('/admin/login/sonuc/', routeToHakkinda, (req, res) => {
+    var gelenToken = req.gonderilecekToken;
+    console.log('Route dan gelen token ' + gelenToken);
+
+    res.redirect(`http://localhost:3000/hakkinda?token=${gelenToken}`);
  });
 
  app.get('/admin/admin_login', (req, res) => {
