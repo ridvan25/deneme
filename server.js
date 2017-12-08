@@ -37,6 +37,8 @@ function tokenAl(req, res, next) {
 
 app.get('/hakkinda', tokenAl, authControl,  (req, res) => {
 
+  console.log('token 2 ' + req.token2);
+  
   res.render('pages/hakkinda.ejs', {
     pageTitle: 'Hakkında',
     pageDatas: 'Hakkında Sayfası İçerik',
@@ -104,7 +106,7 @@ function routeToHakkinda(req, res, next) {
 app.post('/admin/login/sonuc/', routeToHakkinda, (req, res) => {
     var gelenToken = req.gonderilecekToken;
     console.log('Route dan gelen token ' + gelenToken);
-
+    req.token2 = gelenToken;
     res.redirect(`http://localhost:3000/hakkinda?token=${gelenToken}`);
  });
 
